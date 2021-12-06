@@ -40,20 +40,31 @@ public class UserService {
         }
     }
 
-    public User create(User user) {
+    
+        public User create(User user) {
+        //obtiene el maximo id existente en la coleccion
+        Optional<User> userIdMaximo = userRepository.lastUserId();
+        
+        //si el id del Usaurio que se recibe como parametro es nulo, entonces valida el maximo id existente en base de datos
         if (user.getId() == null) {
-            return user;
-        } else {
-            Optional<User> usuario = userRepository.getUser(user.getId());
-            if (usuario.isEmpty()) {
-                if (emailExist(user.getEmail()) == false) {
-                    return userRepository.create(user);
-                } else {
-                    return user;
-                }
-            } else {
+            //valida el maximo id generado, si no hay ninguno aun el primer id sera 1
+            if (userIdMaximo.isEmpty()){
+            user.setId(1);
+            }else{
+                //si retorna informacion suma 1 al maximo id existente y lo asigna como el codigo del usuario
+                 user.setId(userIdMaximo.get().getId() + 1);
+            }            
+        }
+        
+        Optional<User> usuario = userRepository.getUser(user.getId());
+        if (usuario.isEmpty()) {
+            if (emailExist(user.getEmail())==false){
+                return userRepository.create(user);
+            }else{
                 return user;
             }
+        }else{
+            return user;
         }
     }
 
@@ -100,5 +111,9 @@ public class UserService {
             return true;
         }).orElse(false);
         return aBoolean;
+    }
+    
+    public boolean idVerification(int id) {
+        return userRepository.idVerification(id);
     }
 }

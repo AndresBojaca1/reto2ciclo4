@@ -62,11 +62,16 @@ public class AccessoryController {
         return accessoryService.update(accessory);
     }
     
-    // F A L T A
     @DeleteMapping("/{reference}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public boolean delete(@PathVariable("reference") String reference) {
         return accessoryService.delete(reference);
+    }
+    
+    @GetMapping("/verificateId/{reference}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public boolean referenceVerification(@PathVariable("reference") String reference) {
+        return accessoryService.referenceVerification(reference);
     }
     
 }

@@ -73,11 +73,16 @@ public class UserController {
         return userService.delete(id);
     }
     
-    //Verificar si ID existe -- CREADO 01/12/2021 por mi
-    @GetMapping("/{id}")
+    //Verificar si ID existe -- CREADO 01/12/2021 
+    
     public boolean idVerification(@PathVariable("id") int id){
-        Optional<User> usuario = userService.getUser(id);
-        return !usuario.isEmpty();
+       return userService.idVerification(id);
+    }
+    
+    //Generar un JSON unicamente con los datos de una Id en particular  -- CREADO 01/12/2021 
+    @GetMapping("/all/{id}")
+    public Optional<User> getUser(@PathVariable("id") int id) {
+        return userService.getUser(id); 
     }
     
 

@@ -49,4 +49,13 @@ public class UserRepository {
     public void delete(User user) {
         userCrudRepository.delete(user);
     }
+    
+    public boolean idVerification(int id){
+        Optional<User> usuario = userCrudRepository.findById(id);
+        return !usuario.isEmpty();
+    }
+    
+    public Optional<User> lastUserId(){
+        return userCrudRepository.findTopByOrderByIdDesc();
+    }
 }

@@ -21,4 +21,6 @@ public interface UserCrudRepository extends MongoRepository<User, Integer> {
     public Optional<User> findByEmail(String email);
     //Recuperar Datos de usuario asociados a un Email y un Password
     public Optional<User> findByEmailAndPassword(String email, String password);
+    //Determina el numero de ID mas alto
+    Optional<User> findTopByOrderByIdDesc();  
 }

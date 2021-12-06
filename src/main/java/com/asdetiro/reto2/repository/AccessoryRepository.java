@@ -36,4 +36,9 @@ public class AccessoryRepository {
     public void delete(Accessory accessory) {
         accessoryCrudRepository.delete(accessory);
     }
+    
+    public boolean referenceVerification(String reference) {
+        Optional<Accessory> accessory = accessoryCrudRepository.findById(reference);
+        return !accessory.isEmpty();
+    }
 }

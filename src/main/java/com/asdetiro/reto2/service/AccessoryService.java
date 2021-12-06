@@ -76,4 +76,8 @@ public class AccessoryService {
         }).orElse(false);
         return aBoolean;
     }
+    
+    public boolean referenceVerification(String reference) {
+        return accessoryRepository.referenceVerification(reference);
+    }
 }
